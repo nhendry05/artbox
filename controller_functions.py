@@ -1,6 +1,6 @@
-from flask import render_template, redirect, request
+from flask import render_template, redirect, request, session
 from flask_bcrypt import Bcrypt
-from config import db
+from config import db, bcrypt 
 from models import User
 
 def main():
@@ -18,13 +18,29 @@ def add_user():
         new_user = User(first_name=request.form['fname'], last_name=request.form['lname'], email=request.form['email'], password=pw_hash)
         db.session.add(new_user)
         db.session.commit()
-        return redirect("/login")
+        return redirect("/user")
 
 def login():
     return render_template("login.html")
 
 def login_user():
-    
-    return redirect("/login")
+    login_check = User.validate_login(request.form)
+    if not login_check:
+        return redirect("/login")
+    else:
+        login = User.query.filter_by(email=request.form["email"]).first()
+        print(login.password)
+        print(request.form['pw'])
+        if bcrypt.check_password_hash(login.password, request.form["pw"]):
+            session['user_id'] = login.id
+            return redirect("/user")
+
+
+def user():
+    return render_template("index.html")
+
+def logout():
+    session.clear()
+    return redirect("/")
 
 

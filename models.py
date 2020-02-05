@@ -36,3 +36,9 @@ class User(db.Model):
             is_valid = False
             flash("Passwords do not match")
         return is_valid
+    @classmethod
+    def validate_login(cls, user_info):
+        is_valid = True
+        if len(user_info["email"]) < 1:
+            is_valid = False
+        return is_valid
