@@ -42,3 +42,10 @@ class User(db.Model):
         if len(user_info["email"]) < 1:
             is_valid = False
         return is_valid
+
+class Child(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(45))
+    age = db.Column(db.String(45))
+    created_at = db.Column(db.DateTime, server_default=func.now())
+    updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())

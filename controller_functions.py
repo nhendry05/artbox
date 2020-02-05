@@ -1,7 +1,7 @@
 from flask import render_template, redirect, request, session
 from flask_bcrypt import Bcrypt
 from config import db, bcrypt 
-from models import User
+from models import User, Child
 
 def main():
     return render_template("main.html")
@@ -44,6 +44,9 @@ def child():
     return render_template("add_child.html")
 
 def add_child():
+    new_child = Child(name=request.form['child_name'], age=request.form['child_age'])
+    db.session.add(new_child)
+    db.session.commit()
     return redirect("/user")
 
 def logout():
