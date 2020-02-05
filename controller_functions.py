@@ -35,9 +35,16 @@ def login_user():
             session['user_id'] = login.id
             return redirect("/user")
 
-
 def user():
-    return render_template("index.html")
+    user_id = session['user_id']
+    user_logged_in =  User.query.filter_by(id=user_id).first()
+    return render_template("index.html", user=user_logged_in)
+
+def child():
+    return render_template("add_child.html")
+
+def add_child():
+    return redirect("/user")
 
 def logout():
     session.clear()

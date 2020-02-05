@@ -13,10 +13,22 @@
             <a class = "text-white navbar-brand" href="/">ArtBox</a>
             <a class="nav-link text-white" href="/logout">Log Out</a>
         </nav>
-        <div class = "col-sm-6 offset-3 my-5 text-center">
-            <h3> Welcome, {{ user['first_name'] }} </h3>
-            <a href = "/child">Add New Child</a>
-            
+        <div class = "col-sm-6 offset-3 my-3">
+            <h5>Add New Child</h5>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action = "/add_child", method = 'POST'>
+                <label for = "child_name" class = "col-sm-20 col-form-label">Child's Name:</label>
+                <input type = "text" class = "form-control" name = "child_name">
+                <label for = "child_age" class = "col-sm-20 col-form-label">Child's Age:</label>
+                <input type = "text" class = "form-control" name = "child_age">
+                <input type = "submit" value = "Add Child">
+            </form>
         </div>
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
