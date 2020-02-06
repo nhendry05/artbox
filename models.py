@@ -46,6 +46,7 @@ class User(db.Model):
 class Child(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(45))
-    age = db.Column(db.String(45))
+    birthday = db.Column(db.Integer)
+    photo = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
