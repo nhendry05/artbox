@@ -22,7 +22,8 @@ def add_user():
         db.session.commit()
         login = User.query.filter_by(email=request.form["email"]).first()
         session['user_id'] = login.id
-        return redirect("/user")
+        user_id = session['user_id']
+        return redirect(url_for('user', user_id=user_id ))
 
 def login():
     if 'user_id' in session:
@@ -39,11 +40,10 @@ def login_user():
         print(request.form['pw'])
         if bcrypt.check_password_hash(login.password, request.form["pw"]):
             session['user_id'] = login.id
-            return redirect("/user_id")
-            ###NEED TO SEND USER_ID
+            user_id = session['user_id']
+            return redirect(url_for('user', user_id=user_id ))
 
 def user(user_id):
-    user_id = session['user_id']
     user_logged_in =  User.query.filter_by(id=user_id).first()
     return render_template("user.html", user=user_logged_in)
 
