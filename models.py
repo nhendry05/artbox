@@ -48,5 +48,7 @@ class Child(db.Model):
     name = db.Column(db.String(45))
     birthday = db.Column(db.Integer)
     photo = db.Column(db.String(255))
+    parent_id = db.Column(db.Integer, db.ForeignKey("user.id", ondelete="cascade"), nullable=False)
+    parent = db.relationship('User', foreign_keys=[parent_id], backref="user_child")
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())

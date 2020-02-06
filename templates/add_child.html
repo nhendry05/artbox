@@ -8,20 +8,13 @@
     <title>ArtBox</title>
 </head>
 <body>
-    <div class = "container bg-light">
+    <div class = "container-fluid">
         <nav class="navbar bg-secondary">
             <a class = "text-white navbar-brand" href="/">ArtBox</a>
             <a class="nav-link text-white" href="/logout">Log Out</a>
         </nav>
         <div class = "col-sm-6 offset-3 my-3">
             <h4>Add New Child</h4>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <p>{{message}}</p>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
             <form action = "/add_child", method = 'POST'>
                 <div class = "form-group row">
                     <label for = "child_name" class = "col-sm-3 col-form-label">Child's Name:</label>
@@ -35,6 +28,7 @@
                     <label for = "cover_photo" class = "col-sm-3 col-form-label">Cover Photo:</label>
                     <input type = "file" class = "form-control col-sm-6" name = "cover_photo">
                 </div>
+                <input type="hidden" name="parent_id" value="{{ user_id }}">
                 <input type = "submit" value = "Add Child">
             </form>
         </div>

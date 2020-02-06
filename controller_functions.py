@@ -56,10 +56,11 @@ def user(user_id):
     return render_template("user.html", user=user_logged_in)
 
 def new_child():
-    return render_template("add_child.html")
+    user_id = session['user_id']
+    return render_template("add_child.html", user_id=user_id)
 
 def add_child():
-    new_child = Child(name=request.form['child_name'], birthday=request.form['child_birthday'], photo=request.form['cover_photo'])
+    new_child = Child(name=request.form['child_name'], birthday=request.form['child_birthday'], photo=request.form['cover_photo'], parent_id=request.form['parent_id'])
     db.session.add(new_child)
     db.session.commit()
     user_id = session['user_id']
