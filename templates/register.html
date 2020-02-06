@@ -11,11 +11,11 @@
     <div class = "container-fluid">
         <nav class="navbar bg-secondary">
             <a class = "text-white navbar-brand" href="/">ArtBox</a>
-            <a class="nav-link text-white" href="/register">Register</a>
+            <a class="nav-link text-white offset-8" href="/login">Log In</a>
         </nav>
         <div class = "my-4 row">
             <div class = "col-sm-6 offset-4">
-                <h4>Log In</h4>
+                <h4>New User</h4>
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
                         {% for message in messages %}
@@ -23,7 +23,15 @@
                         {% endfor %}
                     {% endif %}
                 {% endwith %}
-                <form action = "/login_user", method = 'POST'>
+                <form action = "/register_user", method = 'POST'>
+                    <div class = "form-group row">
+                        <label for = "fname" class = "col-sm-3 col-form-label">First Name:</label>
+                        <input type = "text" class = "form-control col-sm-6" name = "fname">
+                    </div>
+                    <div class = "form-group row">
+                        <label for = "lname" class = "col-sm-3 col-form-label">Last Name:</label>
+                        <input type = "text" class = "form-control col-sm-6" name = "lname">
+                    </div>
                     <div class = "form-group row">
                         <label for = "email" class = "col-sm-3 col-form-label">Email:</label>
                         <input type = "text" class = "form-control col-sm-6" name = "email">
@@ -32,12 +40,16 @@
                         <label for = "pw" class = "col-sm-3 col-form-label">Password:</label>
                         <input type = "password" class = "form-control col-sm-6" name = "pw">
                     </div>
-                    <input type = "submit" value = "Log In">
+                    <div class = "form-group row">    
+                        <label for = "pwc" class = "col-sm-3 col-form-label">Confirm:</label>
+                        <input type = "password" class = "form-control col-sm-6" name = "pwc">
+                    </div>
+                    <input type = "submit" value = "Register">
                 </form>
             </div>
         </div>
     </div>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import render_template, redirect, request, session
+from flask import render_template, redirect, request, session, url_for
 from flask_bcrypt import Bcrypt
 from config import db, bcrypt 
 from models import User, Child
@@ -7,7 +7,9 @@ def main():
     return render_template("main.html")
 
 def register():
-    return render_template("registration.html")
+    if 'user_id' in session:
+        return redirect("/user_id")
+    return render_template("register.html")
 
 def add_user():
     validation_check = User.validate_user(request.form)
@@ -18,9 +20,13 @@ def add_user():
         new_user = User(first_name=request.form['fname'], last_name=request.form['lname'], email=request.form['email'], password=pw_hash)
         db.session.add(new_user)
         db.session.commit()
+        login = User.query.filter_by(email=request.form["email"]).first()
+        session['user_id'] = login.id
         return redirect("/user")
 
 def login():
+    if 'user_id' in session:
+        return redirect("/user_id")
     return render_template("login.html")
 
 def login_user():
@@ -33,14 +39,15 @@ def login_user():
         print(request.form['pw'])
         if bcrypt.check_password_hash(login.password, request.form["pw"]):
             session['user_id'] = login.id
-            return redirect("/user")
+            return redirect("/user_id")
+            ###NEED TO SEND USER_ID
 
-def user():
+def user(user_id):
     user_id = session['user_id']
     user_logged_in =  User.query.filter_by(id=user_id).first()
-    return render_template("index.html", user=user_logged_in)
+    return render_template("user.html", user=user_logged_in)
 
-def child():
+def new_child():
     return render_template("add_child.html")
 
 def add_child():
