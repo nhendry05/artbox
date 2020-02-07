@@ -19,19 +19,22 @@
         <div class = "col-sm-6 offset-3 my-5 text-center">
             <h3> Welcome, {{ user['first_name'] }} </h3>
         </div>
-        <div>
+        <div class="offset-3">
             {% for child in all_children %}
-            <div class="card text-center">
-                <div class="card-header">
-                    <a class = "text-dark" href = "#">{{ child['name'] }}</a>
-                <div>
-                <div class="card-body" style="width: 18rem;">
-                    <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="col-sm-4 my-4 d-inline-block">
+                <div class = "card-block">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <a class = "text-dark" href = "#">{{ child['name'] }}</a>
+                            <div class="card-body" style="width: 18rem;">
+                                <img class="card-img-top" src="..." alt="Card image cap">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-              {% endfor %}
+            {% endfor %}
         </div>
-    </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>
