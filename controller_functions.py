@@ -54,11 +54,12 @@ def login_user():
 def user(user_id):
     user_id = session['user_id']
     user_logged_in =  User.query.filter_by(id=user_id).first()
-    return render_template("user.html", user=user_logged_in)
+    all_children =  Child.query.filter_by(id=user_id).all()
+    return render_template("user.html", user=user_logged_in, all_children=all_children)
 
 def new_child(user_id):
     user_id = session['user_id']
-    return render_template("add_child.html", user=user_id)
+    return render_template("add_child.html", user_id=user_id)
 
 def add_child(user_id):
     new_child = Child(name=request.form['child_name'], birthday=request.form['child_birthday'], photo=request.form['cover_photo'], parent_id=request.form['parent_id'])
