@@ -66,6 +66,15 @@ def add_child():
     user_id = session['user_id']
     return redirect(url_for('user', user_id=user_id ))
 
+def edit_child(user_id):
+    all_children =  Child.query.filter_by(id=user_id).all()
+    return render_template("edit_child.html", all_children=all_children)
+
+def editchild():
+    user =  User.query.filter_by(id=user_id).first()
+    return render_template("user.html", user=user)
+
+
 def logout():
     session.clear()
     return redirect("/")
