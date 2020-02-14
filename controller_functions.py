@@ -82,8 +82,10 @@ def editchild():
     user_edit.photo = request.form['cover_photo']
     db.session.commit()
     user_logged_in =  User.query.filter_by(id=user_id).first()
-    return render_template("user.html", user=user_logged_in)
+    return redirect(url_for('user', user_id=user_id))
 
+def childpage():
+    return render_template("childpage.html")
 
 def logout():
     session.clear()
