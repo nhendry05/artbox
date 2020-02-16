@@ -3,6 +3,10 @@ from flask_bcrypt import Bcrypt
 from config import db, bcrypt 
 from models import User, Child, Art
 from datetime import datetime
+#ADDED HERE
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy_imageattach.entity import Image, image_attachment
+#END ADD
 
 def main():
     return render_template("main.html")
@@ -55,7 +59,6 @@ def user(user_id):
     user_id = session['user_id']
     user_logged_in =  User.query.filter_by(id=user_id).first()
     all_children =  Child.query.filter_by(parent_id=user_id).all()
-    print(all_children)
     return render_template("user.html", user=user_logged_in, all_children=all_children)
 
 def new_child(user_id):
