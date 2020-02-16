@@ -1,7 +1,7 @@
 from flask import render_template, redirect, request, session, url_for, flash
 from flask_bcrypt import Bcrypt
 from config import db, bcrypt 
-from models import User, Child
+from models import User, Child, Art
 from datetime import datetime
 
 def main():
@@ -89,11 +89,26 @@ def childpage(user_id, child_name):
     user_id = session['user_id']
     user_logged_in =  User.query.filter_by(id=user_id).first()
     child_name = child_name;
-
     return render_template("child_page.html", user=user_logged_in, child_name=child_name)
+
+def new_art(user_id):
+    user_id = session['user_id']
+    user_logged_in =  User.query.filter_by(id=user_id).first()
+    all_children =  Child.query.filter_by(parent_id=user_id).all()
+    return render_template("add_art.html", user=user_logged_in, all_children=all_children)
+
+def add_art():
+    user_id = session['user_id']
+    all_children =  Child.query.filter_by(parent_id=user_id).all()
+    child_name = request.form['child_name']
+    for child in all_children:
+        if child.name == child_name:
+            child_id = child.id
+    new_art = Art(photo=request.form['new_art'], creation_date=request.form['art_date'], description=request.form['art_description'], child_id=child_id)
+    db.session.add(new_art)
+    db.session.commit()
+    return redirect(url_for('user', user_id=user_id ))
 
 def logout():
     session.clear()
     return redirect("/")
-
-

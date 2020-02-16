@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>ArtBox</title>
+</head>
+<body>
+    <div class = "container-fluid">
+        <nav class="navbar bg-secondary">
+            <a class = "text-white navbar-brand" href="/{{ user.id }}">ArtBox</a>
+            <a class="nav-link text-white" href="/logout">Log Out</a>
+        </nav>
+        <div class = "col-sm-6 offset-3 my-3">
+            <h4>Add Art</h4>
+            <form action = "/add_art", method = 'POST'>
+                <div class = "form-group row">
+                    <label for = "child_name" class = "col-sm-3 col-form-label">Child's Name:</label>
+                    <select class = "custom-select form-control col-sm-6" name = "child_name">
+                        <option selected>-Select a Child-</option>
+                        {% for child in all_children %}
+                            <option value="{{ child['name'] }}">{{ child['name'] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class = "form-group row">
+                    <label for = "new_art" class = "col-sm-3 col-form-label">New Art:</label>
+                    <input type = "file" class = "form-control col-sm-6" name = "new_art">
+                </div>
+                <div class = "form-group row">
+                    <label for = "art_date" class = "col-sm-3 col-form-label">Creation Date:</label>
+                    <input type = "date" class = "form-control col-sm-6" name = "art_date">
+                </div>
+                <div class = "form-group row">
+                    <label for = "art_description" class = "col-sm-3 col-form-label">Description:</label>
+                    <textarea class = "form-control col-sm-6" name="art_description" rows="10"></textarea>
+                </div>
+                <input type = "submit" value = "Add Art">
+            </form>
+        </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -52,3 +52,13 @@ class Child(db.Model):
     parent = db.relationship('User', foreign_keys=[parent_id], backref="user_child")
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
+
+class Art(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    photo = db.Column(db.String(255))
+    creation_date = db.Column(db.Integer)
+    description = db.Column(db.String(255))
+    child_id = db.Column(db.Integer, db.ForeignKey("child.id", ondelete="cascade"), nullable=False)
+    child = db.relationship('Child', foreign_keys=[child_id], backref="child_art")
+    created_at = db.Column(db.DateTime, server_default=func.now())
+    updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
