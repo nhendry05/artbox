@@ -72,20 +72,25 @@ def add_child():
 def edit_child(user_id):
     user_id = session['user_id']
     user_logged_in =  User.query.filter_by(id=user_id).first()
-    all_children =  Child.query.filter_by(id=user_id).all()
+    all_children =  Child.query.filter_by(parent_id=user_id).all()
+    print(all_children)
     return render_template("edit_child.html", all_children=all_children, user=user_logged_in)
 
 def editchild():
     user_id = session['user_id']
-    user_edit = Child.query.filter_by(name=request.form['child_name']).first()
-    user_edit.birthday = request.form['child_birthday']
-    user_edit.photo = request.form['cover_photo']
+    child_edit = Child.query.filter_by(name=request.form['child_name']).first()
+    child_edit.birthday = request.form['child_birthday']
+    child_edit.photo = request.form['cover_photo']
     db.session.commit()
     user_logged_in =  User.query.filter_by(id=user_id).first()
     return redirect(url_for('user', user_id=user_id))
 
-def childpage():
-    return render_template("childpage.html")
+def childpage(user_id, child_name):
+    user_id = session['user_id']
+    user_logged_in =  User.query.filter_by(id=user_id).first()
+    child_name = child_name;
+
+    return render_template("child_page.html", user=user_logged_in, child_name=child_name)
 
 def logout():
     session.clear()

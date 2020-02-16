@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>ArtBox</title>
+</head>
+<body>
+    <div class = "container-fluid">
+        <nav class="navbar bg-secondary">
+                <a class = "text-white navbar-brand" href="/{{ user.id }}">ArtBox</a>
+                <a class="nav-link text-white" href="/{{ user.id }}/edit">Edit Child</a>
+                <a class="nav-link text-white" href = "#">Add Art</a>
+                <a class="nav-link text-white" href="/logout">Log Out</a>
+        </nav>
+        <div class = "col-sm-6 offset-3 my-5 text-center">
+            <h3>{{ child_name }}'s ArtBox</h3>
+        </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>
