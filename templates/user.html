@@ -25,15 +25,17 @@
                 <div class = "card-block">
                     <div class="card text-center">
                         <div class="card-header">
-                            <a class = "text-dark" href = "/{{ user.id }}/{{ child['name'] }}">{{ child['name'] }}</a>
+                            <a class = "text-dark" href = "/{{ user.id }}/{{ child['id'] }}/{{ child['name'] }}">{{ child['name'] }}</a>
                             <div class="card-body" style="width: 18rem;">
-                                <img class="card-img-top" src="..." alt="{{ child['name'] }}'s Cover Photo">
+                                
+                                <img class="card-img-top" src="static/img/audrey.jpg" alt="{{ child['name'] }}'s Cover Photo">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             {% endfor %}
+
         </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>

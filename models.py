@@ -2,16 +2,9 @@ from sqlalchemy.sql import func
 from config import db
 from flask import flash
 import re
-#ADDED HERE
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy_imageattach.entity import Image, image_attachment
-#END ADD
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 pass_valid = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%&*?^])[a-zA-z0-9!@#$%&*?^]+$')
-##ADDED HERE
-Base = declarative_base()
-#END ADD
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -50,31 +43,20 @@ class User(db.Model):
             is_valid = False
         return is_valid
 
-class Child(db.Model, Base):
+class Child(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(45))
     birthday = db.Column(db.Integer)
-    #CHANGED AND ADDED HERE
-    #photo = db.Column(db.String(255))
-    photo_name = db.Column(db.Unicode)
-    photo = image_attachment('CoverPhoto')
-    #END ADD
+    photo = db.Column(db.Text)
     parent_id = db.Column(db.Integer, db.ForeignKey("user.id", ondelete="cascade"), nullable=False)
     parent = db.relationship('User', foreign_keys=[parent_id], backref="user_child")
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
 
-#ADDED HERE
-class CoverPhoto(db.Model, Base, Image):
-    child_id = db.Column(db.Integer, db.ForeignKey("child.id", ondelete="cascade"), nullable=False)
-    child = db.relationship('Child', foreign_keys=[child_id], backref="child_coverphoto")
-    @property
-    def object_id(self):
-        return int(hashlib.sha1(self.id).hexdigest(), 16)
-
 class Art(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    photo = db.Column(db.String(255))
+    title = db.Column(db.String(255))
+    art = db.Column(db.String(255))
     creation_date = db.Column(db.Integer)
     description = db.Column(db.String(255))
     child_id = db.Column(db.Integer, db.ForeignKey("child.id", ondelete="cascade"), nullable=False)

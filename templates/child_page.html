@@ -13,11 +13,28 @@
                 <a class = "text-white navbar-brand" href="/{{ user.id }}">ArtBox</a>
                 <a class="nav-link text-white" href="/{{ user.id }}/edit">Edit Child</a>
                 <a class="nav-link text-white" href = "/{{ user.id }}/new_art">Add Art</a>
+                <a class="nav-link text-white" href="/delete_child/{{ child_id }}">Delete Child</a>
                 <a class="nav-link text-white" href="/logout">Log Out</a>
         </nav>
         <div class = "col-sm-6 offset-3 my-5 text-center">
             <h3>{{ child_name }}'s ArtBox</h3>
         </div>
+        {% for art in all_art %}
+            <div class="col-sm-4 my-4 d-inline-block">
+                <div class = "card-block">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <a class = "text-dark" href = "/artpage/{{ child_id }}/{{ art['id'] }}">{{ art['title'] }}</a>
+                            <div class="card-body" style="width: 18rem;">
+                                
+                                <img class="card-img-top" src="..." alt="{{ art['title'] }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>
