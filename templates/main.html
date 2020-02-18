@@ -11,9 +11,12 @@
     <div class = "container-fluid">
         <nav class="navbar bg-secondary">
             <a class = "text-white navbar-brand" href="/">ArtBox</a>
-            <a class="nav-link text-white offset-7" href="/register">Register</a>
-            <a class="nav-link text-white" href="/login">Log In</a>
-            <a class="nav-link text-white" href="/logout">Log Out</a>
+            {% if session['user_id'] != True %}
+                <a class="nav-link text-white offset-7" href="/register">Register</a>
+                <a class="nav-link text-white" href="/login">Log In</a>
+            {% else %}
+                <a class="nav-link text-white" href="/logout">Log Out</a>
+            {% endif %}
         </nav>
         <div class = "col-sm-6 offset-3 my-5 text-center">
             <h3>ArtBox</h3>

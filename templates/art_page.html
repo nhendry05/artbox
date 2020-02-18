@@ -10,14 +10,23 @@
 <body>
     <div class = "container-fluid">
         <nav class="navbar bg-secondary">
-                
+                <a class = "text-white navbar-brand" href="/{{ user_id }}">ArtBox</a>
                 <a class="nav-link text-white" href="/delete_art/{{ child_id }}/{{ art_id }}">Delete Art</a>
                 <a class="nav-link text-white" href="/logout">Log Out</a>
         </nav>
         <div class = "col-sm-6 offset-3 my-5 text-center">
-            <h3>ArtBox</h3>
-            child id: {{ child_id }} art id: {{art_id}}
+            <h3>{{ artwork.title }}</h3>
         </div>
+        <div class = "row offset-2">
+                <div class ="col-sm-5">
+                    <img src = "local: static/art/{{ artwork.art }}" alt="{{ artwork.title }}" width = "500" height = "500">
+                </div>
+                <div class ="col-sm-5">
+                    <p><span class = "font-weight-bold">Created On:</span> {{ artwork.creation_date }}</p>
+                    <p><span class = "font-weight-bold">Description:</span> {{ artwork.description }}</p>
+                </div>
+            </div>
+        
         
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

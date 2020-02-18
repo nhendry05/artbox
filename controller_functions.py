@@ -1,10 +1,11 @@
-from flask import render_template, redirect, request, session, url_for, flash
+from flask import render_template, redirect, request, session, url_for, flash, send_from_directory
 from flask_bcrypt import Bcrypt
 from config import db, bcrypt 
 from models import User, Child, Art
 from datetime import datetime
 #ADDED HERE
 import os
+from uuid import uuid4
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 #END ADD
 
@@ -13,7 +14,8 @@ def main():
 
 def register():
     if 'user_id' in session:
-        return redirect("/user_id")
+        user_id = session['user_id']
+        return redirect(url_for('user', user_id=user_id))
     return render_template("register.html")
 
 def register_user():
@@ -32,7 +34,8 @@ def register_user():
 
 def login():
     if 'user_id' in session:
-        return redirect("/user_id")
+        user_id = session['user_id']
+        return redirect(url_for('user', user_id=user_id))
     return render_template("login.html")
 
 def login_user():
@@ -61,6 +64,9 @@ def user(user_id):
     all_children =  Child.query.filter_by(parent_id=user_id).all()
     return render_template("user.html", user=user_logged_in, all_children=all_children)
 
+def send_cover(filename):
+    return send_from_directory("cover", filename)
+
 def new_child(user_id):
     user_id = session['user_id']
     return render_template("add_child.html", user_id=user_id)
@@ -68,7 +74,7 @@ def new_child(user_id):
 def add_child():
     user_id = session['user_id']
 
-    target = os.path.join(APP_ROOT, 'templates/static/img')
+    target = os.path.join(APP_ROOT, 'templates/cover')
     print(target)
 
     if not os.path.isdir(target):
@@ -99,7 +105,7 @@ def editchild():
     user_id = session['user_id']
     child_edit = Child.query.filter_by(name=request.form['child_name']).first()
 
-    target = os.path.join(APP_ROOT, 'templates/static/img')
+    target = os.path.join(APP_ROOT, 'templates/cover')
     print(target)
 
     if not os.path.isdir(target):
@@ -121,7 +127,7 @@ def editchild():
 def childpage(user_id, child_id, child_name):
     user_id = session['user_id']
     child_id = child_id
-    all_art =  Art.query.filter_by(child_id=child_id).all()
+    all_art =  Art.query.filter_by(child_id=child_id).order_by(Art.creation_date.desc()).all()
     user_logged_in =  User.query.filter_by(id=user_id).first()
     child_name = child_name
     return render_template("child_page.html", user=user_logged_in, child_name=child_name, child_id=child_id, all_art=all_art)
@@ -135,7 +141,7 @@ def new_art(user_id):
 def add_art():
     user_id = session['user_id']
 
-    target = os.path.join(APP_ROOT, 'templates/static/art')
+    target = os.path.join(APP_ROOT, 'templates/art/')
     print(target)
 
     if not os.path.isdir(target):
@@ -163,7 +169,9 @@ def add_art():
 def artpage(child_id, art_id):
     child_id = child_id
     art_id = art_id
-    return render_template("artpage.html", child_id=child_id, art_id=art_id)
+    user_id = session['user_id']
+    artwork =  Art.query.filter_by(child_id=child_id).filter_by(id=art_id).first()
+    return render_template("art_page.html", user_id=user_id, child_id=child_id, art_id=art_id, artwork=artwork)
 
 def delete_child(child_id):
     user_id = session['user_id']

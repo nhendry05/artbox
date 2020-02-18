@@ -56,7 +56,7 @@ class Child(db.Model):
 class Art(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
-    art = db.Column(db.String(255))
+    art = db.Column(db.Text)
     creation_date = db.Column(db.Integer)
     description = db.Column(db.String(255))
     child_id = db.Column(db.Integer, db.ForeignKey("child.id", ondelete="cascade"), nullable=False)
