@@ -86,6 +86,11 @@ def add_child():
         destination = "/".join([target, photoname])
         print(destination)
         photo.save(destination)
+        bucket_resource.upload_file(
+            Bucket = 'kidsartbox',
+            Filename=photoname,
+            Key=photoname
+        )
     
     new_child = Child(name=request.form['child_name'], birthday=request.form['child_birthday'], photo=photoname, parent_id=request.form['parent_id'])
     db.session.add(new_child)
