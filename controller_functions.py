@@ -62,10 +62,8 @@ def user(user_id):
     user_id = session['user_id']
     user_logged_in =  User.query.filter_by(id=user_id).first()
     all_children =  Child.query.filter_by(parent_id=user_id).all()
+        
     return render_template("user.html", user=user_logged_in, all_children=all_children)
-
-def send_cover(filename):
-    return send_from_directory("cover", filename)
 
 def new_child(user_id):
     user_id = session['user_id']
@@ -86,11 +84,6 @@ def add_child():
         destination = "/".join([target, photoname])
         print(destination)
         photo.save(destination)
-        bucket_resource.upload_file(
-            Bucket = 'kidsartbox',
-            Filename=photoname,
-            Key=photoname
-        )
     
     new_child = Child(name=request.form['child_name'], birthday=request.form['child_birthday'], photo=photoname, parent_id=request.form['parent_id'])
     db.session.add(new_child)

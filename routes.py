@@ -1,12 +1,11 @@
 from config import app
-from controller_functions import main, register, register_user, login, login_user, user, send_cover, new_child, add_child, edit_child, childpage, editchild, new_art, add_art, artpage, delete_art, delete_child, logout
+from controller_functions import main, register, register_user, login, login_user, user, new_child, add_child, edit_child, childpage, editchild, new_art, add_art, artpage, delete_art, delete_child, logout
 app.add_url_rule("/", view_func=main, methods=["GET"])
 app.add_url_rule("/register", view_func=register, methods=["GET"])
 app.add_url_rule("/register_user", view_func=register_user, methods=["POST"])
 app.add_url_rule("/login", view_func=login, methods=["GET"])
 app.add_url_rule("/login_user", view_func=login_user, methods=["POST"])
 app.add_url_rule("/<user_id>", view_func=user, methods = ["GET", "POST"])
-app.add_url_rule("/upload/<filename>", view_func=send_cover, methods = ["GET"])
 app.add_url_rule("/<user_id>/new_child", view_func=new_child,methods =["GET", "POST"])
 app.add_url_rule("/add_child", view_func=add_child, methods=["GET", "POST"] )
 app.add_url_rule("/<user_id>/edit", view_func=edit_child, methods=["GET", "POST"])
